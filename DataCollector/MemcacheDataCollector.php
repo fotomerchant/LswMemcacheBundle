@@ -1,8 +1,6 @@
 <?php
 namespace Lsw\MemcacheBundle\DataCollector;
 
-use Symfony\Component\Yaml\Yaml;
-
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,11 +53,11 @@ class MemcacheDataCollector extends DataCollector
             $this->data['pools']['calls'][$name] = $calls;
             $this->data['pools']['options'][$name] = $this->options[$name];
         }
-        $this->data['pools']['statistics'] = $this->calculateStatistics($this->data['pools']['calls']);
+        $this->data['pools']['statistics'] = $this->calculateStatistics();
         $this->data['total']['statistics'] = $this->calculateTotalStatistics($this->data['pools']['statistics']);
     }
 
-    private function calculateStatistics($calls)
+    private function calculateStatistics()
     {
         $statistics = array();
         foreach ($this->data['pools']['calls'] as $name => $calls) {
@@ -128,8 +126,6 @@ class MemcacheDataCollector extends DataCollector
 
     /**
      * Method returns all logged Memcache call objects
-     *
-     * @return mixed
      */
     public function getCalls()
     {
@@ -138,8 +134,6 @@ class MemcacheDataCollector extends DataCollector
 
     /**
      * Method returns all Memcache options
-     *
-     * @return mixed
      */
     public function getOptions()
     {
@@ -152,5 +146,10 @@ class MemcacheDataCollector extends DataCollector
     public function getName()
     {
         return 'memcache';
+    }
+
+    public function reset()
+    {
+        $this->data = [];
     }
 }

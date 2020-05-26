@@ -20,28 +20,19 @@ It has full Web Debug Toolbar integration that allows you to analyze and debug t
 
 ### Requirements
 
-- PHP 5.3.10 or higher
+- PHP 7.2 or higher
 - php-memcache 3.0.6 or higher
 - memcached 1.4 or higher  
 
 NB: This bundle no longer uses the PHP "memcached" extension that uses "libmemcached", see "Considerations". 
 
-PHP7 support is currently (experimentally) available by compiling and installing: https://github.com/websupport-sk/pecl-memcache/tree/php7
+PHP7 support is available by compiling and installing: https://github.com/websupport-sk/pecl-memcache/tree/php7
 
 ### Installation
 
-To install LswMemcacheBundle with Composer just add the following to your 'composer.json' file:
+To install LswMemcacheBundle with Composer just execute the following command:
 
-    {
-        require: {
-            "leaseweb/memcache-bundle": "*",
-            ...
-        }
-    }
-
-The next thing you should do is install the bundle by executing the following command:
-
-    php composer.phar update leaseweb/memcache-bundle
+    php composer.phar require kick-in/memcache-bundle
 
 Finally, add the bundle to the registerBundles function of the AppKernel class in the 'app/AppKernel.php' file:
 
@@ -67,9 +58,9 @@ lsw_memcache:
 
 Install the following dependencies (in Debian based systems using 'apt'):
 
-    apt-get install memcached php5-memcache
+    apt-get install memcached php-memcache
 
-Do not forget to restart you web server after adding the Memcache module. Now the Memcache
+Do not forget to restart your web server after adding the Memcache module. Now the Memcache
 information should show up with a little double arrow (fast-forward) icon in your debug toolbar.
 
 ### Usage
@@ -220,7 +211,7 @@ Please note:
 
 LswMemcacheBundle uses the 'memcache' PHP extension (memcached client) and not the libmemcache based 'memcached' PHP extension.
 
-Major version 1 of this bundle used the other extension. In major version 2 of this bundle the full featured version 3.0.8 of PECL "memcache" (without the 'd') was chosen, due to it's complete feature set and good design and support.
+Major version 1 of this bundle used the other extension. In major version 2 of this bundle the full featured version 3.0.8 of PECL "memcache" (without the 'd') was chosen, due to its complete feature set and good design and support.
 
 ### Known issues
 

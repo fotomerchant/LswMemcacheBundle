@@ -3,7 +3,6 @@
 namespace Lsw\MemcacheBundle\Command;
 
 use Lsw\MemcacheBundle\Cache\AntiDogPileMemcache;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -63,7 +62,6 @@ class ClearCommand extends ContainerAwareCommand
     * @param OutputInterface $output Output interface
     *
     * @see Command
-    * @return mixed
     */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
