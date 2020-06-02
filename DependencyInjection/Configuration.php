@@ -20,8 +20,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('lsw_memcache');
+        $treeBuilder = new TreeBuilder('lsw_memcache');
+        $rootNode = $treeBuilder->getRootNode();
         $rootNode
             ->append($this->addSessionSupportSection())
             ->append($this->addDoctrineSection())
