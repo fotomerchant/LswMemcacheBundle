@@ -203,6 +203,7 @@ class LswMemcacheExtension extends Extension
 
         $memcache = new Definition('Lsw\MemcacheBundle\Cache\AntiDogPileMemcache');
         $memcache->addArgument(new Parameter('kernel.debug'));
+        $memcache->setPublic(true);
 
         // Add servers to the memcache pool
         foreach ($config['servers'] as $s) {

@@ -3,17 +3,22 @@
 namespace Lsw\MemcacheBundle\Command;
 
 use Lsw\MemcacheBundle\Cache\AntiDogPileMemcache;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 /**
  * Provides a command-line interface for flushing memcache content
  */
-class ClearCommand extends ContainerAwareCommand
+class ClearCommand extends Command implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+
     /**
      * @var AntiDogPileMemcache
      */
@@ -47,7 +52,7 @@ class ClearCommand extends ContainerAwareCommand
         $pool = $input->getArgument('pool');
 
         try {
-            $this->memcache = $this->getContainer()->get('memcache.'.$pool);
+            $this->memcache = $this->container->get('memcache.'.$pool);
 
             $output->writeln($this->memcache->flush()?'<info>OK</info>':'<error>ERROR</error>');
         } catch (ServiceNotFoundException $e) {

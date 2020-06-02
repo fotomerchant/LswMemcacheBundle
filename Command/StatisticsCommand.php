@@ -2,19 +2,23 @@
 
 namespace Lsw\MemcacheBundle\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 /**
  * Provides a command-line interface for viewing cache pool stats
  * Based on Beryllium\CacheBundle by Kevin Boyd <beryllium@beryllium.ca>
  */
-class StatisticsCommand extends ContainerAwareCommand
+class StatisticsCommand extends Command implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
 
    /**
     * Configure the CLI task
@@ -43,7 +47,7 @@ class StatisticsCommand extends ContainerAwareCommand
    {
      $pool = $input->getArgument('pool');
      try {
-         $memcache = $this->getContainer()->get('memcache.'.$pool);
+         $memcache = $this->container->get('memcache.'.$pool);
          $output->writeln($this->formatStats($memcache->getExtendedStats()));
      } catch (ServiceNotFoundException $e) {
          $output->writeln("<error>pool '$pool' is not found</error>");
